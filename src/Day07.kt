@@ -6,8 +6,8 @@ fun main() {
     print { part2(input) }
 }
 
-private fun part1(input: List<Int>) =
-    input.indices.minOf { i -> input.sumOf { abs(it - i) } }
+private fun part1(input: List<Int>): Int =
+    input.sorted()[input.size / 2].let { median -> input.sumOf { abs(it - median) } }
 
-private fun part2(input: List<Int>) =
-    input.indices.minOf { i -> input.sumOf { n -> abs(n - i).let { (it * (it + 1)) / 2 } } }
+private fun part2(input: List<Int>): Int =
+    input.average().toInt().let { mean -> input.sumOf { abs(it - mean) * (abs(it - mean) + 1) / 2 } }
