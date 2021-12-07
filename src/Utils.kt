@@ -32,6 +32,9 @@ infix fun <A, B, C> Pair<A, B>.to(c: C): Triple<A, B, C> = Triple(first, second,
 fun Int.pow(n: Int): Int = toDouble().pow(n).toInt()
 fun Long.pow(n: Int): Long = toDouble().pow(n).toLong()
 
+fun Collection<Int>.min() = minOrNull()!!
+fun Collection<Int>.max() = maxOrNull()!!
+
 data class Point(val x: Int, val y: Int) {
     operator fun plus(other: Point) = Point(x + other.x, y + other.y)
     operator fun minus(other: Point) = Point(x - other.x, y - other.y)
