@@ -7,8 +7,9 @@ fun main() {
     print { part2(input) }
 }
 
+val uniqueLengths = setOf(2, 3, 4, 7)
 private fun part1(input: List<Pair<List<String>, List<String>>>): Int =
-    input.sumOf { (_, v) -> v.count { it.length in setOf(2, 3, 4, 7) } }
+    input.sumOf { it.second.count { v -> v.length in uniqueLengths } }
 
 private fun part2(input: List<Pair<List<String>, List<String>>>): Int =
     input.sumOf { (signals, values) ->

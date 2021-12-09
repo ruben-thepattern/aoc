@@ -1,13 +1,8 @@
 import java.io.File
-import java.lang.Integer.signum
 import java.math.BigInteger
 import java.security.MessageDigest
-import kotlin.math.abs
-import kotlin.math.absoluteValue
-import kotlin.math.max
 import kotlin.math.pow
 import kotlin.system.measureNanoTime
-import kotlin.system.measureTimeMillis
 
 /**
  * Reads lines from the given input txt file.
@@ -39,4 +34,17 @@ data class Point(val x: Int, val y: Int) {
     operator fun plus(other: Point) = Point(x + other.x, y + other.y)
     operator fun minus(other: Point) = Point(x - other.x, y - other.y)
     operator fun times(factor: Int) = Point(x * factor, y * factor)
+}
+
+enum class CardinalDirection {
+    NORTH, EAST, SOUTH, WEST;
+
+    companion object {
+        inline fun forEach(x: Int, y: Int, block: (x: Int, y: Int) -> Unit) {
+            block(x, y - 1)
+            block(x - 1, y)
+            block(x + 1, y)
+            block(x, y + 1)
+        }
+    }
 }
