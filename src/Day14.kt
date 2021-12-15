@@ -13,7 +13,7 @@ private fun part2(template: String, recipes: Map<String, String>) = simulate(tem
 private fun simulate(template: String, recipes: Map<String, String>, steps: Int): Long {
     var bigrams = template.windowed(2).groupingBy { it }.eachCount().mapValues { it.value.toLong() }
     repeat(steps) {
-        bigrams = mutableMapOf<String, Long>().apply {
+        bigrams = buildMap {
             bigrams.forEach { (pair, count) ->
                 val element = recipes[pair]!!
                 compute(pair[0] + element) { _, v -> (v ?: 0) + count }
@@ -21,10 +21,8 @@ private fun simulate(template: String, recipes: Map<String, String>, steps: Int)
             }
         }
     }
-    val counts = mutableMapOf<Char, Long>().apply {
+    val counts = mutableMapOf(template.last() to 1L).apply {
         bigrams.entries.forEach { (pair, count) -> pair.forEach { compute(it) { _, v -> (v ?: 0) + count } } }
-        this[template.first()] = this[template.first()]!! + 1
-        this[template.last()] = this[template.last()]!! + 1
     }.mapValues { it.value / 2 }
-    return counts.values.maxOf { it } - counts.values.minOf { it }
+    return counts.values.max() - counts.values.min()
 }
