@@ -11,7 +11,7 @@ private fun part1(input: Array<IntArray>) = solve(input)
 private fun part2(input: Array<IntArray>) = solve(input.expand())
 
 private fun solve(map: Array<IntArray>): Int {
-    val levels = Array(map.size) { Array(map[0].size) { Int.MAX_VALUE } }.apply { get(0)[0] = 0 }
+    val levels = Array(map.size) { IntArray(map[0].size) { Int.MAX_VALUE } }.apply { this[0][0] = 0 }
     val visited = mutableSetOf<Point>()
     val queue = PriorityQueue<Point> { a, b -> levels[a.y][a.x].compareTo(levels[b.y][b.x]) }
         .also { it += Point() }
