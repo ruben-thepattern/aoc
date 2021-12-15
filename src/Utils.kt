@@ -28,23 +28,31 @@ fun Int.pow(n: Int): Int = toDouble().pow(n).toInt()
 fun Long.pow(n: Int): Long = toDouble().pow(n).toLong()
 fun <T : Comparable<T>> List<T>.median(): T = sorted()[size / 2]
 
-fun Collection<Int>.min() = minOrNull()!!
-fun Collection<Int>.max() = maxOrNull()!!
+fun <T : Comparable<T>> Collection<T>.min() = minOrNull()!!
+fun <T : Comparable<T>> Collection<T>.max() = maxOrNull()!!
 
-data class Point(val x: Int, val y: Int) {
+data class Point(val x: Int = 0, val y: Int = 0) {
     operator fun plus(other: Point) = Point(x + other.x, y + other.y)
     operator fun minus(other: Point) = Point(x - other.x, y - other.y)
     operator fun times(factor: Int) = Point(x * factor, y * factor)
-    val neighbours = listOf(
-        Point(x - 1, y - 1),
-        Point(x, y - 1),
-        Point(x + 1, y + 1),
-        Point(x - 1, y),
-        Point(x + 1, y),
-        Point(x + 1, y - 1),
-        Point(x, y + 1),
-        Point(x + 1, y + 1)
-    )
+
+    val neighbours by lazy {
+        listOf(
+            Point(x - 1, y - 1),
+            Point(x, y - 1),
+            Point(x + 1, y + 1),
+            Point(x - 1, y),
+            Point(x + 1, y),
+            Point(x + 1, y - 1),
+            Point(x, y + 1),
+            Point(x + 1, y + 1)
+        )
+    }
+    val cardinalNeighbours by lazy { listOf(north, east, south, west) }
+    val north by lazy { Point(x, y - 1) }
+    val south by lazy { Point(x, y + 1) }
+    val east by lazy { Point(x + 1, y) }
+    val west by lazy { Point(x - 1, y) }
 }
 
 enum class CardinalDirection {
