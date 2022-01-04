@@ -1,5 +1,5 @@
 fun main() {
-    val input = readText("16").trim()
+    val input = readText("16")
         .map { c -> c.digitToInt(16).toString(2).padStart(4, '0') }
         .joinToString("")
         .parse()

@@ -9,7 +9,7 @@ import kotlin.system.measureNanoTime
  */
 fun readInput(name: String): List<String> = File("inputs", "$name.txt").readLines().filter { it.isNotBlank() }
 
-fun readText(name: String): String = File("inputs", "$name.txt").readText()
+fun readText(name: String): String = File("inputs", "$name.txt").readText().trim()
 
 /**
  * Converts string to md5 hash.
